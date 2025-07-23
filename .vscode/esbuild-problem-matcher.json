@@ -1,0 +1,14 @@
+[
+    {
+        "owner": "esbuild",
+        "fileLocation": "relative",
+        "pattern": {
+            "regexp": "^\\s+>\\s+(.*):(\\d+):(\\d+):\\s+(error|warning):\\s+(.*)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "severity": 4,
+            "message": 5
+        }
+    }
+]

@@ -1,0 +1,19 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<!-- project-identifier · icono SVG -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="project-identifier icon">
+  <!-- Fondo degradado al estilo Visual Studio Code -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="256" y2="256" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#007ACC"></stop>
+      <stop offset="100%" stop-color="#005F9E"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- Placa base con bordes redondeados -->
+  <rect width="256" height="256" rx="32" fill="url(#bg)"></rect>
+
+  <!-- Iniciales “PI” centradas -->
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-size="110" font-weight="700" fill="#ffffff">
+    PI
+  </text>
+</svg>
