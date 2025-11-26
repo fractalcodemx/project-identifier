@@ -19,8 +19,27 @@
       {
         "command": "project-identifier.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "project-identifier.selectImage",
+        "title": "Change Project Image",
+        "icon": "$(pencil)"
       }
     ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "project-identifier.selectImage",
+          "when": "view == project-identifier.view.explorer",
+          "group": "navigation"
+        },
+        {
+          "command": "project-identifier.selectImage",
+          "when": "view == project-identifier.view.scm",
+          "group": "navigation"
+        }
+      ]
+    },
     "views": {
       "explorer": [
         {
