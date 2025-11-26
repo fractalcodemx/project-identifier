@@ -20,35 +20,35 @@ export class ImageViewProvider implements vscode.WebviewViewProvider {
     ) {
         this._view = webviewView;
 
-        // 1. Configuramos los permisos iniciales
+        // 1. Configure initial permissions
         this._updateWebviewOptions();
 
-        // 2. Renderizamos el HTML inicial
+        // 2. Render initial HTML
         this._updateHtml();
     }
 
     /**
-     * Calcula y actualiza los permisos de directorios permitidos (localResourceRoots).
-     * Esto es CRÍTICO para que las imágenes se vean.
+     * Calculates and updates allowed directory permissions (localResourceRoots).
+     * This is CRITICAL for loading local images inside the Webview sandbox.
      */
     private _updateWebviewOptions() {
         if (!this._view) return;
 
         const localResourceRoots = [this._extensionUri];
 
-        // A. Permitir siempre acceder a las carpetas del Workspace abierto
+        // A. Always allow access to open Workspace folders
         if (vscode.workspace.workspaceFolders) {
             localResourceRoots.push(...vscode.workspace.workspaceFolders.map(f => f.uri));
         }
 
-        // B. Si hay una imagen seleccionada (guardada o nueva), permitir acceso a SU carpeta contenedora
+        // B. If a custom image is selected, allow access to its parent folder
         const currentImagePath = this._getCurrentImagePath();
         if (currentImagePath) {
             const imageDir = vscode.Uri.file(path.dirname(currentImagePath));
             localResourceRoots.push(imageDir);
         }
 
-        Logger.log(`Actualizando permisos. Rutas permitidas: ${localResourceRoots.length}`);
+        Logger.log(`Updating permissions. Allowed roots: ${localResourceRoots.length}`);
 
         this._view.webview.options = {
             enableScripts: true,
@@ -69,15 +69,15 @@ export class ImageViewProvider implements vscode.WebviewViewProvider {
 
         if (fileUri && fileUri[0]) {
             const selectedPath = fileUri[0].fsPath;
-            Logger.log(`Imagen seleccionada: ${selectedPath}`);
+            Logger.log(`Image selected: ${selectedPath}`);
 
-            // 1. Guardar persistencia
+            // 1. Persist state
             await this._context.workspaceState.update('projectImage', selectedPath);
 
-            // 2. IMPORTANTE: Actualizar los permisos para incluir la nueva carpeta
+            // 2. CRITICAL: Update permissions to include the new folder
             this._updateWebviewOptions();
 
-            // 3. Refrescar la vista HTML
+            // 3. Refresh HTML
             this._updateHtml();
         }
     }
@@ -93,13 +93,13 @@ export class ImageViewProvider implements vscode.WebviewViewProvider {
         let imageSrc: vscode.Uri;
 
         if (userImagePath && fs.existsSync(userImagePath)) {
-            // Convertimos la ruta local a una URI especial que VS Code entiende (vscode-resource:)
+            // Convert local path to a URI that VS Code understands (vscode-resource:)
             imageSrc = this._view.webview.asWebviewUri(vscode.Uri.file(userImagePath));
-            Logger.log(`Renderizando imagen de usuario: ${imageSrc.toString()}`);
+            Logger.log(`Rendering user image: ${imageSrc.toString()}`);
         } else {
             const defaultPath = vscode.Uri.joinPath(this._extensionUri, 'media', 'logo.svg');
             imageSrc = this._view.webview.asWebviewUri(defaultPath);
-            Logger.log("Renderizando imagen por defecto.");
+            Logger.log("Rendering default image.");
         }
 
         this._view.webview.html = this._getHtmlContent(imageSrc);
@@ -129,7 +129,6 @@ export class ImageViewProvider implements vscode.WebviewViewProvider {
                         max-height: 100%;
                         object-fit: contain;
                         padding: 10px;
-                        /* Un poco de sombra para que destaque en temas oscuros/claros */
                         filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
                     }
                 </style>

@@ -5,11 +5,11 @@ import { Logger } from './Logger';
 export function activate(context: vscode.ExtensionContext) {
 
     Logger.initialize();
-    Logger.log("Activando extensión 'Project Identifier'...");
+    Logger.log("Activating 'Project Identifier' extension...");
 
-    // Pasamos 'context' al constructor para manejar la persistencia
+    // Pass 'context' to the constructor to handle persistence
     const imageViewProvider = new ImageViewProvider(context.extensionUri, context);
-    Logger.log("Instancia de ImageViewProvider creada.");
+    Logger.log("ImageViewProvider instance created.");
 
     context.subscriptions.push(
         vscode.window.registerWebviewViewProvider(
@@ -27,14 +27,14 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(
         vscode.commands.registerCommand('project-identifier.selectImage', () => {
-            // Delegamos la lógica al Provider (Principio de Responsabilidad Única)
+            // Delegate logic to Provider (Single Responsibility Principle)
             imageViewProvider.selectNewImage();
         })
     );
 
-    Logger.log("¡Extensión completamente activa!");
+    Logger.log("Extension fully active!");
 }
 
 export function deactivate() {
-    Logger.log("Desactivando la extensión.");
+    Logger.log("Deactivating extension.");
 }
