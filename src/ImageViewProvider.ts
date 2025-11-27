@@ -32,7 +32,10 @@ export class ImageViewProvider implements vscode.WebviewViewProvider {
      * This is CRITICAL for loading local images inside the Webview sandbox.
      */
     private _updateWebviewOptions() {
-        if (!this._view) return;
+
+        if (!this._view) {
+            return;
+        }
 
         const localResourceRoots = [this._extensionUri];
 
