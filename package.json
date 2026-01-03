@@ -50,7 +50,7 @@
       "explorer": [
         {
           "id": "project-identifier.view.explorer",
-          "name": "Imagen del Proyecto",
+          "name": "Project Image",
           "type": "webview",
           "icon": "media/logo.svg"
         }
@@ -58,7 +58,7 @@
       "scm": [
         {
           "id": "project-identifier.view.scm",
-          "name": "Imagen del Proyecto",
+          "name": "Project Image",
           "type": "webview",
           "icon": "media/logo.svg"
         }
