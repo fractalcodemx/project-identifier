@@ -4,7 +4,7 @@
   "description": "Displays a project-specific image in the sidebar for easy identification.",
   "publisher": "fractalcode-mx",
   "icon": "media/logo-marketplace.png",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "repository": {
     "type": "git",
     "url": "https://github.com/fractalcode-mx/project-identifier.git"
